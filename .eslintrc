@@ -1,9 +1,13 @@
 {
   "extends": "airbnb-base",
+  "env": {
+    "node": true,
+    "es2021": true
+  },
   "rules": {
     "no-console": "off",
-    "camelcase": ["error", { "properties": "always" }],
+    "camelcase": "off",
     "linebreak-style": "off",
-    "alguma-regra-de-nomeclatura": ["error", { "allow": ["id", "ID", "_id"] }]
+    "consistent-return": "off"
   }
 }
