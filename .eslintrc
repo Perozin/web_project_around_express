@@ -1,3 +1,9 @@
 {
-  "extends": "airbnb-base"
+  "extends": "airbnb-base",
+  "rules": {
+    "no-console": "off",
+    "camelcase": ["error", { "properties": "always" }],
+    "linebreak-style": "off",
+    "alguma-regra-de-nomeclatura": ["error", { "allow": ["id", "ID", "_id"] }]
+  }
 }
