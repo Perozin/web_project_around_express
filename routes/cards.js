@@ -1,36 +1,28 @@
-const router = require('express').Router();
-const path = require('path');
-const readJsonFile = require('../utils/readJsonFile');
+// routes/cards.js
+import { Router } from 'express';
+import {
+  getCards,
+  createCard,
+  deleteCard,
+  likeCard,
+  dislikeCard,
+} from '../controllers/cards.js';
 
-const cardsPath = path.join(__dirname, '../data/cards.json');
+const router = Router();
 
-// GET /cards
-router.get('/', (req, res) => {
-  readJsonFile(cardsPath, res, (cards) => {
-    res.send(cards);
-  });
-});
+// GET /cards — retorna todos os cards
+router.get('/', getCards);
 
-module.exports = router;
+// POST /cards — cria um novo card
+router.post('/', createCard);
 
-// // Funcionando plenamente
-// // routes/cards.js
-// const router = require('express').Router();
-// const fs = require('fs');
-// const path = require('path');
+// DELETE /cards/:cardId — deleta um card
+router.delete('/:cardId', deleteCard);
 
-// const cardsPath = path.join(__dirname, '../data/cards.json');
+// PUT /cards/:cardId/likes — curte um card
+router.put('/:cardId/likes', likeCard);
 
-// // GET /cards
-// router.get('/', (req, res) => {
-//   fs.readFile(cardsPath, 'utf-8', (err, data) => {
-//     if (err) {
-//       res.status(500).send({ message: 'Ocorreu um erro no servidor' });
-//       return;
-//     }
+// DELETE /cards/:cardId/likes — remove curtida
+router.delete('/:cardId/likes', dislikeCard);
 
-//     res.send(JSON.parse(data));
-//   });
-// });
-
-// module.exports = router;
+export default router;
