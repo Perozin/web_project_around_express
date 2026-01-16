@@ -105,13 +105,27 @@ Abaixo estão exemplos de requisições realizadas à API utilizando o navegador
 
 ---
 
+### 🔹 Cria usuário (`POST /users`)
+
+Cria um usuário específico com identificador único (`_id`).
+
+<p align="center">
+  <img
+   src="https://github.com/user-attachments/assets/cb9a2d89-b6a4-4b89-96a6-fe259bd8fbdb"
+    alt="Resposta da rota GET /users/:id com os dados de um usuário específico"
+    width="520"
+  />
+</p>
+
+---
+
 ### 🔹 Listagem de usuários (`GET /users`)
 
 Retorna um array com todos os usuários disponíveis no arquivo `users.json`.
 
 <p align="center">
   <img
-    src="https://github.com/user-attachments/assets/0417c8bc-36e1-478f-99d0-0cd3c7d84e0f"
+   src="https://github.com/user-attachments/assets/7963bc26-ca8b-4d4c-84e0-a9085e3c77a9"
     alt="Resposta da rota GET /users mostrando a lista de usuários"
     width="520"
   />
@@ -125,7 +139,7 @@ Retorna os dados de um usuário específico a partir do seu identificador único
 
 <p align="center">
   <img
-    src="https://github.com/user-attachments/assets/d77c73f2-f7c7-426c-84be-9466c1a0ece4"
+   src="https://github.com/user-attachments/assets/30c02813-23c5-4cc7-8b0e-61f112823059"
     alt="Resposta da rota GET /users/:id com os dados de um usuário específico"
     width="520"
   />
@@ -139,7 +153,7 @@ Retorna um array contendo todos os cartões disponíveis no arquivo `cards.json`
 
 <p align="center">
   <img
-    src="https://github.com/user-attachments/assets/cdc7b4f2-3329-454f-9f1e-3cf83ea7af58"
+    src="https://github.com/user-attachments/assets/4a51e579-9334-4cff-88b9-efd0cd154bbb"
     alt="Resposta da rota GET /cards mostrando a lista de cartões"
     width="520"
   />
@@ -149,7 +163,7 @@ Retorna um array contendo todos os cartões disponíveis no arquivo `cards.json`
 
 ## 🎥 Demonstração em Vídeo
 
-#### 🎬 [▶️ Assista ao vídeo](https://www.loom.com/share/4973ef99ad4b4253b7850b88ad53bb49)
+#### 🎬 [▶️ Assista ao vídeo](https://www.loom.com/share/de408fc528ab4f2eaf782512ef5b866a)
 
 ---
 
@@ -181,9 +195,92 @@ http://localhost:3000
 
 ---
 
-📚 Observação Importante
+## 🔄 Atualização do Projeto — Sprint 16 (Persistência com MongoDB)
 
-Este projeto não utiliza banco de dados, pois faz parte de um sprint introdutório.
-Nos próximos sprints, os dados serão migrados para uma base de dados real, substituindo os arquivos JSON.
+A partir desta etapa, o projeto deixou de utilizar arquivos JSON como armazenamento temporário e passou a operar com **persistência real de dados**, utilizando **MongoDB** como banco de dados e **Mongoose** como ODM.
+
+Essa evolução transforma a aplicação em uma **API REST completa**, mais próxima de um cenário real de produção.
+
+---
+
+## 🗄️ Persistência de Dados com MongoDB
+
+- Integração com banco de dados **MongoDB**
+- Conexão realizada via **Mongoose**
+- Banco utilizado: `aroundb`
+- Models definidos com **schemas e validações**
+
+### Models implementados
+
+#### 👤 User
+- `name` — string (2–30 caracteres, obrigatório)
+- `about` — string (2–30 caracteres, obrigatório)
+- `avatar` — URL válida (obrigatório)
+
+#### 🖼️ Card
+- `name` — string (2–30 caracteres, obrigatório)
+- `link` — URL válida (obrigatório)
+- `owner` — referência ao usuário (`ObjectId`)
+- `likes` — array de usuários (`ObjectId`)
+- `createdAt` — data de criação automática
+
+---
+
+## 🔐 Middleware de Autorização (temporário)
+
+Foi implementado um middleware temporário que injeta um usuário fixo no objeto `req.user`, permitindo testar corretamente rotas protegidas sem autenticação real.
+
+> ⚠️ Este middleware será substituído por autenticação completa (JWT) em sprints futuros.
+
+---
+
+## 🔗 Novos Endpoints Implementados
+
+### 📍 Usuários
+
+```
+POST /users — cria um novo usuário
+PATCH /users/me — atualiza nome e descrição do usuário logado
+PATCH /users/me/avatar — atualiza o avatar do usuário logado
+```
+
+---
+
+### 📍 Cartões
+
+```
+POST /cards — cria um novo cartão
+DELETE /cards/:cardId — remove um cartão
+PUT /cards/:cardId/likes — adiciona um like ao cartão
+DELETE /cards/:cardId/likes — remove um like do cartão
+```
+
+---
+
+## ⚠️ Tratamento de Erros
+
+A aplicação passou a contar com tratamento centralizado de erros HTTP:
+
+- **400** — Dados inválidos (validação do Mongoose)
+- **404** — Recurso não encontrado
+- **500** — Erro interno do servidor
+
+Os erros são tratados por um middleware global, garantindo respostas padronizadas e consistentes.
+
+---
+
+## 🛠️ Tecnologias Adicionais Utilizadas
+
+- **MongoDB** — banco de dados NoSQL
+- **Mongoose** — modelagem e validação de dados
+- **ObjectId** — relacionamento entre coleções
+- **Validações customizadas** com regex
+
+---
+
+📌 Observação
+
+Esta versão do projeto já opera com **persistência real**, porém ainda não possui autenticação por login e senha.
+A implementação de autenticação e autorização completas será realizada nos próximos sprints.
 
 ---
