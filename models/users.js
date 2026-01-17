@@ -1,7 +1,6 @@
 // models/user.js
 import mongoose from 'mongoose';
-
-const urlRegex = /^(https?:\/\/)(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)$/;
+import { urlRegex } from '../utils/constants';
 
 const userSchema = new mongoose.Schema({
   name: {
