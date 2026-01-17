@@ -1,6 +1,6 @@
 // models/card.js
 import mongoose from 'mongoose';
-import { urlRegex } from '../utils/constants';
+import urlRegex from '../utils/constants';
 
 const cardSchema = new mongoose.Schema({
   name: {

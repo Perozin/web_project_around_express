@@ -1,6 +1,6 @@
 // controllers/users.js
-import User from '../models/users.js';
-import { NotFoundError } from '../errors/NotFoundError.js';
+import User from '../models/users';
+import NotFoundError from '../errors/NotFoundError';
 
 // retorna todos usuários
 export const getUsers = (req, res, next) => {

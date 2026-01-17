@@ -1,9 +1,9 @@
 // app.js
 import express from 'express';
 import mongoose from 'mongoose';
-import usersRouter from './routes/users.js';
-import cardsRouter from './routes/cards.js';
-import { AppError } from './errors/AppError.js';
+import usersRouter from './routes/users';
+import cardsRouter from './routes/cards';
+import AppError from './errors/AppError';
 
 const app = express();
 const { PORT = 3000 } = process.env;
@@ -32,7 +32,7 @@ app.use((req, res, next) => {
 });
 
 // middleware global de tratamento de erros
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   if (err.statusCode) {
     return res.status(err.statusCode).json({ message: err.message });
   }

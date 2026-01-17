@@ -1,6 +1,6 @@
 // controllers/cards.js
-import Card from '../models/cards.js';
-import { NotFoundError } from '../errors/NotFoundError.js';
+import Card from '../models/cards';
+import NotFoundError from '../errors/NotFoundError';
 
 // retorna todos os cartões
 export const getCards = (req, res, next) => {

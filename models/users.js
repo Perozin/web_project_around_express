@@ -1,6 +1,6 @@
 // models/user.js
 import mongoose from 'mongoose';
-import { urlRegex } from '../utils/constants';
+import urlRegex from '../utils/constants';
 
 const userSchema = new mongoose.Schema({
   name: {

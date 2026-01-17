@@ -1,7 +1,7 @@
 // errors/ValidationError.js
-import { AppError } from './AppError.js';
+import AppError from './AppError';
 
-export class ValidationError extends AppError {
+export default class ValidationError extends AppError {
   constructor(message) {
     super(message, 400);
   }
